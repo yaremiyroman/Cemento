@@ -11,12 +11,12 @@ const AppContainer = styled.div`
 
 const AppBrand = styled.div`
   display: flex;
-  width: 50%:
+  width: 50%;
 `;
 
-const Upload = styled(FileUpload)`
+const UploadWrapper = styled.div`
   display: flex;
-  width: 50%:
+  width: 50%;
 `;
 
 const App = _ => {
@@ -28,8 +28,10 @@ const App = _ => {
 
   return (
     <AppContainer className="App">
-      <AppBrand>Cemento</AppBrand>
-      <Upload />
+      <AppBrand>1Cemento</AppBrand>
+      <UploadWrapper>
+        <FileUpload />
+      </UploadWrapper>
       <Table rows={files} />
     </AppContainer>
   );

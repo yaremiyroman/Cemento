@@ -92,7 +92,7 @@ const Table = ({ rows }) => {
       // autoHeight={true}
       rowRenderer={renderRow}
       rowCount={rows.length}
-      rowHeight={120}
+      rowHeight={200}
     />
   );
 }
