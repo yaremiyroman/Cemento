@@ -49,3 +49,24 @@ export const initDB = (data) => {
         };
     });
 };
+export const getStoreData = (storeName) => {
+    return new Promise((resolve) => {
+        const request = indexedDB.open('Cemento');
+
+        request.onsuccess = () => {
+            const db = request.result;
+
+            if (db.objectStoreNames.contains(storeName)) {
+                const tx = db.transaction(storeName, 'readonly');
+                const store = tx.objectStore(storeName);
+                const res = store.getAll();
+
+                res.onsuccess = () => {
+                    resolve(res.result);
+                };
+            } else {
+                resolve(false);
+            }
+        };
+    });
+};

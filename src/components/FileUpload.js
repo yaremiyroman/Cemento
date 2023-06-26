@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { initDB } from '../dbService';
 
 export default function ({ children }) {
-  const [files, setFiles] = useState("");
+  const [file, setFile] = useState(false);
 
   const handleChange = e => {
     const handleInitDB = async (data) => {
@@ -14,18 +14,14 @@ export default function ({ children }) {
     fileReader.readAsText(e.target.files[0], "UTF-8");
 
     fileReader.onload = e => {
-      setFiles(e.target.result);
+      setFile(true);
       handleInitDB(e.target.result);
     };
   };
 
   return (
-    <>
-      <h1>Upload Json file - Example</h1>
-      1
+    <div>
       <input type="file" onChange={handleChange} />
-      <br />
-      {"uploaded file content -- " + files}
-    </>
+    </div>
   );
 }
