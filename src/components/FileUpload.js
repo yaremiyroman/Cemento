@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { initDB } from '../dbService';
+import { putData } from '../dbService';
 
 export default function ({ children }) {
   const [file, setFile] = useState(false);
 
   const handleChange = e => {
-    const handleInitDB = async (data) => {
-      const status = await initDB(data);
+    const handleputData = async (data) => {
+      const status = await putData(data);
     };
 
     const fileReader = new FileReader();
@@ -15,7 +15,7 @@ export default function ({ children }) {
 
     fileReader.onload = e => {
       setFile(true);
-      handleInitDB(e.target.result);
+      handleputData(e.target.result);
     };
   };
 

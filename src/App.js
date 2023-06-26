@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
-import { getStoreData } from './dbService';
+import { getStoreData, initDB } from './dbService';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -27,6 +27,7 @@ const App = _ => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
+    initDB();
     getStoreData('Rows').then((data) => setFiles(data));
   }, []);
 

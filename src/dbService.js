@@ -1,10 +1,6 @@
 const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
-export const initDB = (data) => {
-    const { columns, data: rows } = JSON.parse(data);
-    console.log('initDB columns > ', columns);
-    console.log('initDB rows > ', rows);
-
+export const initDB = () => {
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
 
@@ -21,6 +17,29 @@ export const initDB = (data) => {
                 db.createObjectStore('Rows', { keyPath: 'rowId', autoIncrement: true });
             }
         };
+
+        request.onsuccess = () => {
+            resolve(true);
+        };
+
+        request.onerror = () => {
+            const error = request.error?.message
+            if (error) {
+                resolve(error);
+            } else {
+                resolve('Unknown error');
+            }
+        };
+    });
+}
+
+export const putData = (data) => {
+    const { columns, data: rows } = JSON.parse(data);
+    console.log('putData columns > ', columns);
+    console.log('putData rows > ', rows);
+
+    return new Promise((resolve) => {
+        const request = indexedDB.open('Cemento');
 
         request.onsuccess = () => {
             const db = request.result;
@@ -49,6 +68,7 @@ export const initDB = (data) => {
         };
     });
 };
+
 export const getStoreData = (storeName) => {
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
