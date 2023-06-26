@@ -7,6 +7,11 @@ const Row = styled.div`
   display: flex;
 `;
 
+const TableContainer = styled(List)`
+  display: flex;
+  width: 100% !important;
+`;
+
 const Table = ({ rows }) => {
   if (!rows.length) return null;
 
@@ -81,7 +86,7 @@ const Table = ({ rows }) => {
   );
 
   return (
-    <List
+    <TableContainer
       width={1200}
       height={700}
       // autoHeight={true}
