@@ -19,9 +19,5 @@ export default function ({ children }) {
     };
   };
 
-  return (
-    <div>
-      <input type="file" onChange={handleChange} />
-    </div>
-  );
+  return <input type="file" onChange={handleChange} />;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
+import AppBrand from './components/AppBrand';
 import { getStoreData, initDB } from './dbService';
 import styled from 'styled-components';
 
@@ -9,14 +10,7 @@ const AppContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const AppBrand = styled.div`
-  display: flex;
-  width: 50%;
-  height: 10vh;
-  background: palegoldenrod;
-  `;
-  
-  const UploadWrapper = styled.div`
+const UploadWrapper = styled.div`
   display: flex;
   width: 50%;
   height: 10vh;
@@ -33,12 +27,12 @@ const App = _ => {
 
   return (
     <AppContainer className="App">
-      <AppBrand>1Cemento</AppBrand>
+      <AppBrand />
       <UploadWrapper>
         <FileUpload />
       </UploadWrapper>
       <Table rows={files} />
-    </AppContainer>
+    </AppContainer >
   );
 }
 

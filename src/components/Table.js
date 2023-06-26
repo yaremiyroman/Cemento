@@ -113,7 +113,7 @@ const Table = ({ rows }) => {
                   <div key={key} style={{ ...style }}>
                     <Row
                       key={key}
-                      style={{ height: { height }, width: "100%" }}
+                      style={{ height: { height } }}
                       className={row.rowId}
                     >
                       <div>{row.rowId}</div>
