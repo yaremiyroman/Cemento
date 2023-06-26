@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { getStoreData } from '../dbService';
 import { AutoSizer, List } from "react-virtualized";
 import styled from 'styled-components';
 
@@ -25,77 +24,6 @@ const TableContainer = styled(List)`
 const Table = ({ rows }) => {
   if (!rows.length) return null;
 
-  console.log('rows > ', rows);
-
-  const renderRow = ({ index, key, style }) => (
-    <Row
-      key={key}
-      style={style}
-      className={rows[index].rowId}
-    >
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-      <div>{rows[index].rowId}</div>
-      <div>{rows[index].id}</div>
-    </Row>
-  );
-
   return (
     <div style={{ width: "100%", height: "90vh", background: "darkcyan" }}>
       <AutoSizer>
@@ -105,7 +33,6 @@ const Table = ({ rows }) => {
               width={width}
               height={height}
               rowHeight={60}
-              // rowRenderer={renderRow}
               rowCount={rows.length}
               rowRenderer={({ key, index, style }) => {
                 const row = rows[index];
