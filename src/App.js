@@ -12,11 +12,15 @@ const AppContainer = styled.div`
 const AppBrand = styled.div`
   display: flex;
   width: 50%;
-`;
-
-const UploadWrapper = styled.div`
+  height: 10vh;
+  background: palegoldenrod;
+  `;
+  
+  const UploadWrapper = styled.div`
   display: flex;
   width: 50%;
+  height: 10vh;
+  background: gainsboro;
 `;
 
 const App = _ => {

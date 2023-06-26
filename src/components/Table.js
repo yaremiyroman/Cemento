@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { getStoreData } from '../dbService';
-import { List } from "react-virtualized";
+import { AutoSizer, List } from "react-virtualized";
 import styled from 'styled-components';
 
 const Row = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #657786;
+  border-radius: 4px;
+  background-color: #1da1f2;
+  color: white;
 `;
 
 const TableContainer = styled(List)`
   display: flex;
-  width: 100% !important;
+  width: 100%;
+
+  .ReactVirtualized__Grid__innerScrollContainer {
+    width: 100% !important;
+   }
 `;
 
 const Table = ({ rows }) => {
@@ -19,7 +29,8 @@ const Table = ({ rows }) => {
 
   const renderRow = ({ index, key, style }) => (
     <Row
-      key={rows[index].rowId}
+      key={key}
+      style={style}
       className={rows[index].rowId}
     >
       <div>{rows[index].rowId}</div>
@@ -86,14 +97,35 @@ const Table = ({ rows }) => {
   );
 
   return (
-    <TableContainer
-      width={1200}
-      height={700}
-      // autoHeight={true}
-      rowRenderer={renderRow}
-      rowCount={rows.length}
-      rowHeight={200}
-    />
+    <div style={{ width: "100%", height: "90vh", background: "darkcyan" }}>
+      <AutoSizer>
+        {({ width, height }) => {
+          return (
+            <TableContainer
+              width={width}
+              height={height}
+              rowHeight={60}
+              // rowRenderer={renderRow}
+              rowCount={rows.length}
+              rowRenderer={({ key, index, style }) => {
+                const row = rows[index];
+                return (
+                  <div key={key} style={{ ...style }}>
+                    <Row
+                      key={key}
+                      style={{ height: { height }, width: "100%" }}
+                      className={row.rowId}
+                    >
+                      <div>{row.rowId}</div>
+                    </Row>
+                  </div>
+                );
+              }}
+            />
+          );
+        }}
+      </AutoSizer >
+    </div >
   );
 }
 
