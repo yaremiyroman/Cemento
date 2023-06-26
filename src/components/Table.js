@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { AutoSizer, List } from "react-virtualized";
 import styled from 'styled-components';
 
+const Container = styled.div`
+  width: 100%;
+  height: 90vh;
+  background: darkcyan;
+`;
+
 const Row = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
   border: 1px solid #657786;
   border-radius: 4px;
   background-color: #1da1f2;
@@ -25,34 +29,26 @@ const Table = ({ rows }) => {
   if (!rows.length) return null;
 
   return (
-    <div style={{ width: "100%", height: "90vh", background: "darkcyan" }}>
+    <Container>
       <AutoSizer>
-        {({ width, height }) => {
-          return (
-            <TableContainer
-              width={width}
-              height={height}
-              rowHeight={60}
-              rowCount={rows.length}
-              rowRenderer={({ key, index, style }) => {
-                const row = rows[index];
-                return (
-                  <div key={key} style={{ ...style }}>
-                    <Row
-                      key={key}
-                      style={{ height: { height } }}
-                      className={row.rowId}
-                    >
-                      <div>{row.rowId}</div>
-                    </Row>
-                  </div>
-                );
-              }}
-            />
-          );
-        }}
+        {({ width, height }) => (
+          <TableContainer
+            width={width}
+            height={height}
+            rowHeight={60}
+            rowCount={rows.length}
+            rowRenderer={({ key, index, style }) => {
+              const row = rows[index];
+              return (
+                <Row key={key} style={style} className={row.rowId}>
+                  {row.rowId}
+                </Row>
+              );
+            }}
+          />
+        )}
       </AutoSizer >
-    </div >
+    </Container >
   );
 }
 

@@ -69,7 +69,7 @@ export const putData = (data) => {
     });
 };
 
-export const getStoreData = (storeName) => {
+export const getData = (storeName) => {
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
 

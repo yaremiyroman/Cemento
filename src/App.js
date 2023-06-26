@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
-import { getStoreData, initDB } from './dbService';
+import { getData, initDB } from './dbService';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -22,7 +22,7 @@ const App = _ => {
 
   useEffect(() => {
     initDB();
-    getStoreData('Rows').then((data) => setFiles(data));
+    getData('Rows').then((data) => setFiles(data));
   }, []);
 
   return (
