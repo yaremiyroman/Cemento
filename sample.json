@@ -10,23 +10,39 @@
       "id": "1",
       "ordinalNo": "3",
       "title": "Title1",
-      "type": "string"
+      "type": "number"
+    },
+    {
+      "id": "4",
+      "ordinalNo": "3",
+      "title": "Title1",
+      "type": "boolean"
     },
     {
       "id": "2",
       "ordinalNo": "1",
       "title": "Name2",
-      "type": "string"
+      "type": "selection"
     }
   ],
   "data": [
     {
       "id": "1",
-      "1": "Title1"
+      "1": 100
     },
     {
       "id": "1",
-      "2": "Namee1"
+      "2": {
+        "options": [
+          "Male",
+          "Female"
+        ],
+        "selected": "Male"
+      }
+    },
+    {
+      "id": "1",
+      "4": true
     },
     {
       "id": "1",
@@ -34,11 +50,21 @@
     },
     {
       "id": "2",
-      "1": "Title2"
+      "1": 200
     },
     {
       "id": "2",
-      "2": "Namee2"
+      "2": {
+        "options": [
+          "Male",
+          "Female"
+        ],
+        "selected": "Male"
+      }
+    },
+    {
+      "id": "2",
+      "4": true
     },
     {
       "id": "2",
@@ -46,11 +72,21 @@
     },
     {
       "id": "3",
-      "1": "Title3"
+      "1": 300
     },
     {
       "id": "3",
-      "2": "Namee3"
+      "2": {
+        "options": [
+          "Male",
+          "Female"
+        ],
+        "selected": "Male"
+      }
+    },
+    {
+      "id": "3",
+      "4": true
     },
     {
       "id": "3",
