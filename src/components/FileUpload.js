@@ -6,7 +6,7 @@ export default function ({ children }) {
 
   const handleChange = e => {
     const handleputData = async (data) => {
-      const status = await putData(data);
+      await putData(data);
     };
 
     const fileReader = new FileReader();

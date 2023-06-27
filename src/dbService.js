@@ -14,7 +14,7 @@ export const initDB = () => {
 
             if (!db.objectStoreNames.contains('Rows')) {
                 console.log('Creating Rows store');
-                db.createObjectStore('Rows', { keyPath: 'rowId', autoIncrement: true });
+                db.createObjectStore('Rows', { keyPath: 'id' });
             }
         };
 
@@ -34,9 +34,23 @@ export const initDB = () => {
 }
 
 export const putData = (data) => {
-    const { columns, data: rows } = JSON.parse(data);
-    console.log('putData columns > ', columns);
-    console.log('putData rows > ', rows);
+    const { columns, data: cells } = JSON.parse(data);
+    // console.log('putData columns > ', columns);
+    // console.log('putData cells > ', cells);
+
+    const rows = [];
+
+    cells.forEach((cell) => {
+        const i = rows.findIndex(row => row.id === cell.id);
+
+        if (i >= 0) {
+            for (let key in cell) {
+                if (key !== 'id') rows[i][key] = cell[key];
+            }
+        } else {
+            rows.push(cell)
+        }
+    });
 
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
