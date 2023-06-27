@@ -1,21 +1,21 @@
 {
   "columns": [
     {
+      "id": "3",
+      "ordinalNo": "2",
+      "title": "String3",
+      "type": "string"
+    },
+    {
       "id": "1",
-      "ordinalNo": "1",
-      "title": "Title",
+      "ordinalNo": "3",
+      "title": "Title1",
       "type": "string"
     },
     {
       "id": "2",
-      "ordinalNo": "2",
-      "title": "Name",
-      "type": "string"
-    },
-    {
-      "id": "3",
-      "ordinalNo": "3",
-      "title": "String",
+      "ordinalNo": "1",
+      "title": "Name2",
       "type": "string"
     }
   ],

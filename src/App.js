@@ -18,11 +18,13 @@ const UploadWrapper = styled.div`
 `;
 
 const App = _ => {
-  const [files, setFiles] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [cols, setCols] = useState([]);
 
   useEffect(() => {
     initDB();
-    getData('Rows').then((data) => setFiles(data));
+    getData('Rows').then((data) => setRows(data));
+    getData('Columns').then((data) => setCols(data));
   }, []);
 
   return (
@@ -31,7 +33,7 @@ const App = _ => {
       <UploadWrapper>
         <FileUpload />
       </UploadWrapper>
-      <Table rows={files} />
+      <Table rows={rows} cols={cols} />
     </AppContainer >
   );
 }

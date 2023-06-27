@@ -25,8 +25,9 @@ const TableContainer = styled(List)`
    }
 `;
 
-const Table = ({ rows }) => {
+const Table = ({ rows, cols }) => {
   if (!rows.length) return null;
+  if (!cols.length) return null;
 
   return (
     <Container>
@@ -39,9 +40,22 @@ const Table = ({ rows }) => {
             rowCount={rows.length}
             rowRenderer={({ key, index, style }) => {
               const row = rows[index];
+
               return (
-                <Row key={key} style={style} className={row.rowId}>
-                  {row.rowId}
+                <Row key={key} style={style} className={row.id}>
+                  {Object.entries(row).map(([key, value]) => {
+                    if (key === 'id') {
+                      return (
+                        <div key={key} style={{ flex: 1, order: 0 }}>{`${key} > ${value}`}</div>
+                      );
+                    } else {
+                      const col = cols.find(col => col.id === key);
+
+                      return (
+                        <div key={key} style={{ flex: 1, order: col.ordinalNo }}>{`${key} > ${value}`}</div>
+                      );
+                    }
+                  })}
                 </Row>
               );
             }}
