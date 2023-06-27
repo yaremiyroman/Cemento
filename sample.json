@@ -37,7 +37,7 @@
           "Male",
           "Female"
         ],
-        "selected": "Male"
+        "selected": "Female"
       }
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "id": "2",
-      "4": true
+      "4": false
     },
     {
       "id": "2",
