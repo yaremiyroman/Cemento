@@ -104,3 +104,28 @@ export const getData = (storeName) => {
         };
     });
 };
+
+export const updateData = (rowData) => {
+    console.log('updateData > ', rowData);
+
+    return new Promise((resolve) => {
+        const request = indexedDB.open('Cemento');
+
+        request.onsuccess = () => {
+            const db = request.result;
+            const tx = db.transaction('Rows', 'readwrite');
+            const storeRows = tx.objectStore('Rows');
+            storeRows.put(rowData);
+            resolve(tx.complete);
+        };
+
+        request.onerror = () => {
+            const error = request.error?.message
+            if (error) {
+                resolve(error);
+            } else {
+                resolve('Unknown error');
+            }
+        };
+    });
+}

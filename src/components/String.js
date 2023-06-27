@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField } from '@mui/material';
+import { updateData } from "../dbService";
 
-const String = ({ value, isNumber }) => {
+const String = ({ value, col, rowData, isNumber }) => {
     const [text, setText] = useState(value);
+
+    useEffect(() => {
+        updateData({
+            ...rowData,
+            [col.id]: text
+        });
+    }, [text]);
 
     return (
         <TextField

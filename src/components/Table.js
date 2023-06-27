@@ -54,7 +54,7 @@ const Table = ({ rows, cols }) => {
 
                       return (
                         <div key={key} style={{ flex: 1, order: col.ordinalNo }}>
-                          <Cell col={col} cellKey={key} value={value} />
+                          <Cell col={col} rowData={row} value={value} />
                         </div>
                       );
                     }

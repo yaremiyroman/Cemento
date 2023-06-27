@@ -1,32 +1,22 @@
-import React, { useState } from "react";
-import { TextField } from '@mui/material';
+import React from "react";
 import Bool from "./Bool";
 import String from "./String";
 import Select from "./Select";
 
-const Cell = ({ col, cellKey, value }) => {
-  let cellControl;
-
+const Cell = ({ col, value, rowData }) => {
   switch (col.type) {
     case 'string':
-      cellControl = <String value={value} />
-      break;
+      return <String value={value} col={col} rowData={rowData} />
 
     case 'boolean':
-      cellControl = <Bool value={value} />
-      break;
+      return <Bool value={value} col={col} rowData={rowData} />
 
     case 'number':
-      cellControl = <String value={value} isNumber={true} />
-      break;
+      return <String value={value} col={col} rowData={rowData} isNumber={true} />
 
     case 'selection':
-      cellControl = <Select value={value} col={col} />
-      break;
-
+      return <Select value={value} col={col} rowData={rowData} />
   }
-
-  return cellControl;
 }
 
 export default Cell;
