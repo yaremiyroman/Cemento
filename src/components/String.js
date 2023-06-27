@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { TextField } from '@mui/material';
 import { updateData } from "../dbService";
+import { TextField } from '@mui/material';
 
 const String = ({ value, col, rowData, isNumber }) => {
     const [text, setText] = useState(value);
 
     useEffect(() => {
-        updateData({
-            ...rowData,
-            [col.id]: text
-        });
+        const timerId = setTimeout(() => {
+            updateData({
+                ...rowData,
+                [col.id]: text
+            });
+        }, 500);
+
+        return () => {
+            clearTimeout(timerId);
+        };
     }, [text]);
 
     return (

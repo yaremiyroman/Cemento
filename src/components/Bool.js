@@ -4,7 +4,6 @@ import { updateData } from "../dbService";
 
 const Bool = ({ value, col, rowData }) => {
     const [checked, setChecked] = useState(value);
-    console.log('rowData > ', rowData);
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
