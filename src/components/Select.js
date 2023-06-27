@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { updateData } from "../dbService";
 import { Select, MenuItem } from '@mui/material';
 
 const SelectComponent = ({ value, rowData, col }) => {
     const [selected, setSelected] = useState(value.selected);
+    const firstRender = useRef(true);
 
     const handleChange = (event) => {
         setSelected(event.target.value);
     };
 
     useEffect(() => {
-        updateData({
-            ...rowData,
-            [col.id]: {
-                ...rowData[col.id],
-                selected: selected
-            }
-        });
+        if (firstRender.current) {
+            firstRender.current = false;
+        } else {
+            updateData({
+                ...rowData,
+                [col.id]: {
+                    ...rowData[col.id],
+                    selected: selected
+                }
+            });
+        };
     }, [selected]);
 
     return (

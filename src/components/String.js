@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { updateData } from "../dbService";
 import { TextField } from '@mui/material';
 
 const String = ({ value, col, rowData, isNumber }) => {
     const [text, setText] = useState(value);
+    const firstRender = useRef(true);
 
     useEffect(() => {
-        const timerId = setTimeout(() => {
-            updateData({
-                ...rowData,
-                [col.id]: text
-            });
-        }, 500);
+        if (firstRender.current) {
+            firstRender.current = false;
+        } else {
+            const timerId = setTimeout(() => {
+                updateData({
+                    ...rowData,
+                    [col.id]: text
+                });
+            }, 500);
 
-        return () => {
-            clearTimeout(timerId);
+            return () => {
+                clearTimeout(timerId);
+            };
         };
+
     }, [text]);
 
     return (
