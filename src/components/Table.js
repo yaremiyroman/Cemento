@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AutoSizer, List } from "react-virtualized";
 import styled from 'styled-components';
+import { Input, TextField } from '@mui/material';
 
 const Container = styled.div`
   width: 100%;
@@ -52,7 +53,14 @@ const Table = ({ rows, cols }) => {
                       const col = cols.find(col => col.id === key);
 
                       return (
-                        <div key={key} style={{ flex: 1, order: col.ordinalNo }}>{`${key} > ${value}`}</div>
+                        <div key={key} style={{ flex: 1, order: col.ordinalNo }}>
+                          {`${key} > ${value}`}
+                          <TextField
+                            id="outlined-required"
+                            label="Required"
+                            defaultValue="value"
+                          />
+                        </div>
                       );
                     }
                   })}
