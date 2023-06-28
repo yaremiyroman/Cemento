@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { putData } from '../dbService';
 
-export default function ({ children }) {
+export default function ({ getAllData }) {
   const [file, setFile] = useState(false);
 
   const handleChange = e => {
@@ -15,7 +15,7 @@ export default function ({ children }) {
 
     fileReader.onload = e => {
       setFile(true);
-      handleputData(e.target.result);
+      handleputData(e.target.result).then(res => getAllData());
     };
   };
 

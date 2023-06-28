@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
@@ -77,8 +77,7 @@ const App = _ => {
     ? setFilters(filters.filter(filter => filter !== id))
     : setFilters([...filters, id]);
 
-  useEffect(() => {
-    initDB();
+  const getAllData = () => {
     getData('Rows').then((data) => {
       setRowsData(data);
       setRows(data);
@@ -87,16 +86,18 @@ const App = _ => {
       setCols(data);
       setFilters(data.map(col => col.id));
     });
+  }
+
+  useEffect(() => {
+    initDB();
+    getAllData();
   }, []);
-
-
-  console.log('rows => ', rows);
 
   return (
     <AppContainer className="App">
       <AppBrand />
       <UploadWrapper>
-        <FileUpload />
+        <FileUpload getAllData={getAllData} />
       </UploadWrapper>
       <FilterWrapper>
         <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>

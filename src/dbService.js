@@ -80,6 +80,8 @@ export const putData = (data) => {
                 resolve('Unknown error');
             }
         };
+
+        resolve(true);
     });
 };
 
