@@ -132,9 +132,8 @@ const App = _ => {
 
       </AppBar>
 
-
-      <TableHeader cols={cols} filters={filters} />
       <>
+        <TableHeader cols={cols} filters={filters} />
         <Table rows={rows} cols={cols} filters={filters} />
       </>
     </AppContainer >
