@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const TableHeader = ({ cols, filters }) => {
-  if (!cols.length) return null;
+  // if (!cols.length) return null;
 
   return (
     <Container>

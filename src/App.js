@@ -5,7 +5,7 @@ import AppBrand from './components/AppBrand';
 import TableHeader from './components/TableHeader';
 import { getData, initDB } from './dbService';
 import styled from 'styled-components';
-import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, FormHelperText } from '@mui/material';
+import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, FormHelperText, TextField } from '@mui/material';
 
 const AppContainer = styled.div`
   display: flex;
@@ -34,22 +34,49 @@ const SearchWrapper = styled.div`
 `;
 
 const App = _ => {
+  const [rowsData, setRowsData] = useState([]);
   const [rows, setRows] = useState([]);
   const [cols, setCols] = useState([]);
   const [filtersIsOpen, setFiltersIsOpen] = useState(false);
   const [filters, setFilters] = useState([]);
+  const [search, setSearch] = useState('');
 
-  const handleChange = (event, id) => {
-    if (!event.target.checked) {
-      setFilters(filters.filter(filter => filter !== id));
-    } else {
-      setFilters([...filters, id]);
+  useEffect(() => {
+    const handleSearch = () => {
+      const filteredRows = rowsData.filter(row => {
+        return Object.entries(row).find(cell => {
+          console.log('cell => ', cell);
+          // return !!cell[1].selected ? cell[1].selected.includes(search) : cell[1].includes(search);
+          return `${cell[1]}`.includes(search);
+        })
+      });
+
+      setRows(filteredRows);
     }
-  };
+
+    const timerId = setTimeout(() => {
+      if (search.length >= 2) {
+        handleSearch();
+      } else {
+        setRows(rowsData);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    }
+  }, [search]);
+
+  const handleFiltersChange = (event, id) => !event.target.checked
+    ? setFilters(filters.filter(filter => filter !== id))
+    : setFilters([...filters, id]);
 
   useEffect(() => {
     initDB();
-    getData('Rows').then((data) => setRows(data));
+    getData('Rows').then((data) => {
+      setRowsData(data);
+      setRows(data);
+    });
     getData('Columns').then((data) => {
       setCols(data);
       setFilters(data.map(col => col.id));
@@ -78,7 +105,7 @@ const App = _ => {
                   control={
                     <Checkbox
                       checked={filters.includes(id)}
-                      onChange={(e) => handleChange(e, id)}
+                      onChange={(e) => handleFiltersChange(e, id)}
                       name={title}
                       disabled={filters.length === 1 && filters.includes(id)}
                     />
@@ -92,7 +119,13 @@ const App = _ => {
         </Drawer>
       </FilterWrapper>
       <SearchWrapper>
-        SearchWrapper
+        <TextField
+          id="standard-basic"
+          label="Search"
+          variant="standard"
+          onChange={event => setSearch(event.target.value)}
+          value={search}
+        />
       </SearchWrapper>
       <TableHeader cols={cols} filters={filters} />
       <Table rows={rows} cols={cols} filters={filters} />
