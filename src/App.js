@@ -16,7 +16,7 @@ const AppContainer = styled.div`
 const AppBar = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   height: 10vh;
   width: 100%;
   padding: 0 10px;
