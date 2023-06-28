@@ -1,12 +1,11 @@
 import React from "react";
-
 import { AutoSizer, List } from "react-virtualized";
 import Cell from './Cell';
 import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  height: calc(85vh - 1px);
+  height: calc(100vh - 100px);
 `;
 
 const Row = styled.div`

@@ -16,7 +16,7 @@ const AppBar = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  height: 10vh;
+  height: 75px;
   width: 100%;
   padding: 0 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.23);
