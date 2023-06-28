@@ -17,16 +17,18 @@ const AppBar = styled.div`
   align-items: center;
   gap: 10px;
   height: 10vh;
+  width: 100%;
+  padding: 0 10px;
 `;
 
 const UploadWrapper = styled.div`
   display: flex;
   background: gainsboro;
+  margin-left: auto;
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
-  background: paleturquoise;
 `;
 
 const SearchWrapper = styled.div`
@@ -100,12 +102,6 @@ const App = _ => {
 
         <AppBrand />
 
-
-        <UploadWrapper>
-          <FileUpload getAllData={getAllData} />
-        </UploadWrapper>
-
-
         <FilterWrapper>
           <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
           <Drawer
@@ -144,6 +140,11 @@ const App = _ => {
             value={search}
           />
         </SearchWrapper>
+
+
+        <UploadWrapper>
+          <FileUpload getAllData={getAllData} />
+        </UploadWrapper>
 
       </AppBar>
 
