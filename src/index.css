@@ -7,8 +7,14 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: 640px;
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 112, 147, 0.5);
 }

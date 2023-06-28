@@ -6,6 +6,7 @@ const Container = styled.div`
   height: 5vh;
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+  padding-right: 10px;
 `;
 
 const Cell = styled.div`
