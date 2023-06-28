@@ -37,7 +37,7 @@ const App = _ => {
       const filteredRows = rowsData.filter(row => {
         return Object.entries(row).find(cell => {
           if (cell[0] !== 'id' && typeof cell[1] === 'string') {
-            return `${cell[1]}`.includes(search);
+            return `${cell[1]}`.toLowerCase().includes(search.toLowerCase());
           }
         })
       });
