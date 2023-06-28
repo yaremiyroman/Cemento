@@ -34,9 +34,9 @@ const App = _ => {
   useEffect(() => {
     const handleSearch = () => {
       const filteredRows = rowsData.filter(row => {
-        return Object.entries(row).find(cell =>
-          cell[0] !== 'id' && typeof cell[1] === 'string'
-            ? `${cell[1]}`.toLowerCase().includes(search.toLowerCase())
+        return Object.entries(row).find(([key, value]) =>
+          key !== 'id' && (typeof value === 'string' || typeof value === 'number') && filters.includes(key)
+            ? `${value}`.toLowerCase().includes(search.toLowerCase())
             : false
         )
       });
@@ -80,6 +80,10 @@ const App = _ => {
     initDB();
     getAllData();
   }, []);
+
+  useEffect(() => {
+    setSearch('');
+  }, [filters]);
 
   // const dataIsReady = !!rowsData.length;
 
