@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const CheckboxContainer = styled.div`
   display: flex;
   border: 1px solid rgba(0, 0, 0, 0.23);
-  padding: 6px 0;
+  padding: 7px 0px 6px;
   border-radius: 4px;
   justify-content: center;
 `;

@@ -66,16 +66,16 @@ const App = _ => {
     : setFilters([...filters, id]);
 
   const getAllData = () => {
+    getData('Columns').then((data) => {
+      setCols(data);
+      if (!!data.length) setFilters(data.map(col => col.id));
+    });
     getData('Rows').then((data) => {
       setRowsData(data);
       setRows(data);
     });
-    getData('Columns').then((data) => {
-      setCols(data);
-      setFilters(data.map(col => col.id));
-    });
   }
-
+  
   useEffect(() => {
     initDB();
     getAllData();
@@ -85,57 +85,57 @@ const App = _ => {
     setSearch('');
   }, [filters]);
 
-  // const dataIsReady = !!rowsData.length;
+  const dataIsReady = !!rowsData.length;
 
   return (
     <AppContainer>
       <AppBar>
         <AppBrand />
-
-        <>
-          <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
-          <Drawer
-            anchor="left"
-            open={filtersIsOpen}
-            onClose={() => setFiltersIsOpen(false)}
-          >
-            <FormControl component="fieldset" style={{ padding: 20, paddingRight: 100 }}>
-              <FormLabel component="legend" style={{ paddingTop: 20 }}>Filter columns:</FormLabel>
-              <FormGroup>
-                {cols.map(({ title, id }) => (
-                  <FormControlLabel
-                    key={id}
-                    control={
-                      <Checkbox
-                        checked={filters.includes(id)}
-                        onChange={(e) => handleFiltersChange(e, id)}
-                        name={title}
-                        disabled={filters.length === 1 && filters.includes(id)}
-                      />
-                    }
-                    label={title}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>
-          </Drawer>
-        </>
-
-        <TextField
-          id="standard-basic"
-          variant="standard"
-          onChange={event => setSearch(event.target.value)}
-          placeholder="search"
-          value={search}
-        />
+        {dataIsReady && (
+          <>
+            <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
+            <Drawer
+              anchor="left"
+              open={filtersIsOpen}
+              onClose={() => setFiltersIsOpen(false)}
+            >
+              <FormControl component="fieldset" style={{ padding: 20, paddingRight: 100 }}>
+                <FormLabel component="legend" style={{ paddingTop: 20 }}>Filter columns:</FormLabel>
+                <FormGroup>
+                  {cols.map(({ title, id }) => (
+                    <FormControlLabel
+                      key={id}
+                      control={
+                        <Checkbox
+                          checked={filters.includes(id)}
+                          onChange={(e) => handleFiltersChange(e, id)}
+                          name={title}
+                          disabled={filters.length === 1 && filters.includes(id)}
+                        />
+                      }
+                      label={title}
+                    />
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </Drawer>
+            <TextField
+              id="standard-basic"
+              variant="standard"
+              onChange={event => setSearch(event.target.value)}
+              placeholder="search"
+              value={search}
+            />
+          </>
+        )}
         <FileUpload getAllData={getAllData} />
-
       </AppBar>
-
-      <>
-        <TableHeader cols={cols} filters={filters} />
-        <Table rows={rows} cols={cols} filters={filters} />
-      </>
+      {dataIsReady && (
+        <>
+          <TableHeader cols={cols} filters={filters} />
+          <Table rows={rows} cols={cols} filters={filters} />
+        </>
+      )}
     </AppContainer >
   );
 }
