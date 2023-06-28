@@ -45,15 +45,11 @@ const Table = ({ rows, cols }) => {
               return (
                 <Row key={key} style={style} className={row.id}>
                   {Object.entries(row).map(([key, value]) => {
-                    if (key === 'id') {
-                      return (
-                        <div key={key} style={{ flex: 1, order: 0 }}>{`${key} > ${value}`}</div>
-                      );
-                    } else {
+                    if (key !== 'id') {
                       const col = cols.find(col => col.id === key);
 
                       return (
-                        <div key={key} style={{ flex: 1, order: col.ordinalNo }}>
+                        <div key={key} style={{ flex: col.width || 1, order: col.ordinalNo }}>
                           <Cell col={col} rowData={row} value={value} />
                         </div>
                       );

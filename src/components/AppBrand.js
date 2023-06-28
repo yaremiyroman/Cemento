@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  width: 50%;
-  height: 10vh;
+  width: 25%;
+  height: 5vh;
   background: palegoldenrod;
 `;
 
-const AppBrand = _ => {
+const AppControl = _ => {
   return (
     <Container>
       Cemento
@@ -16,4 +16,4 @@ const AppBrand = _ => {
   );
 }
 
-export default AppBrand;
+export default AppControl;
