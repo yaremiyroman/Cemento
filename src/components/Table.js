@@ -27,8 +27,8 @@ const TableContainer = styled(List)`
 `;
 
 const Table = ({ rows, cols, filters }) => {
-  if (!rows.length) return null;
-  if (!cols.length) return null;
+  // if (!rows.length) return null;
+  // if (!cols.length) return null;
 
   return (
     <Container>
@@ -43,7 +43,7 @@ const Table = ({ rows, cols, filters }) => {
               const row = rows[index];
 
               return (
-                <Row key={key} style={style} className={row.id}>
+                <Row key={row.id} style={style} className={row.id}>
                   {Object.entries(row)
                     .filter(([key, value]) => key !== 'id' && filters.includes(key))
                     .map(([key, value]) => {

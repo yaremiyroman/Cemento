@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
@@ -40,31 +40,37 @@ const App = _ => {
   const [filtersIsOpen, setFiltersIsOpen] = useState(false);
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState('');
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const handleSearch = () => {
       const filteredRows = rowsData.filter(row => {
         return Object.entries(row).find(cell => {
-          console.log('cell => ', cell);
-          // return !!cell[1].selected ? cell[1].selected.includes(search) : cell[1].includes(search);
-          return `${cell[1]}`.includes(search);
+          if (cell[0] !== 'id' && typeof cell[1] === 'string' || typeof cell[1] === 'number') {
+            return `${cell[1]}`.includes(search);
+          }
         })
       });
 
+      console.log('filteredRows => ', filteredRows);
       setRows(filteredRows);
     }
 
     const timerId = setTimeout(() => {
-      if (search.length >= 2) {
-        handleSearch();
+      if (firstRender.current) {
+        firstRender.current = false;
       } else {
-        setRows(rowsData);
+        if (search.length >= 2) {
+          handleSearch();
+        } else {
+          setRows(rowsData);
+        }
+      };
+
+      return () => {
+        clearTimeout(timerId);
       }
     }, 500);
-
-    return () => {
-      clearTimeout(timerId);
-    }
   }, [search]);
 
   const handleFiltersChange = (event, id) => !event.target.checked
@@ -82,6 +88,9 @@ const App = _ => {
       setFilters(data.map(col => col.id));
     });
   }, []);
+
+
+  console.log('rows => ', rows);
 
   return (
     <AppContainer className="App">
