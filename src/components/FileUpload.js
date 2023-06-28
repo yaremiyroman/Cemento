@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { putData } from '../dbService';
 
@@ -15,7 +15,7 @@ const InputControl = styled.input`
   display: none;
 `;
 
-export default function ({ getAllData }) {
+const FileUpload = ({ getAllData }) => {
   const handleChange = e => {
     const handleputData = async (data) => {
       await putData(data);
@@ -36,3 +36,4 @@ export default function ({ getAllData }) {
     </InputContainer>
   );
 }
+export default FileUpload;

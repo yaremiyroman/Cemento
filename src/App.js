@@ -3,8 +3,7 @@ import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
 import TableHeader from './components/TableHeader';
-import Placeholder from './components/Placeholder';
-import { getData, initDB, hasData } from './dbService';
+import { getData, initDB } from './dbService';
 import styled from 'styled-components';
 import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, TextField } from '@mui/material';
 
@@ -35,11 +34,11 @@ const App = _ => {
   useEffect(() => {
     const handleSearch = () => {
       const filteredRows = rowsData.filter(row => {
-        return Object.entries(row).find(cell => {
-          if (cell[0] !== 'id' && typeof cell[1] === 'string') {
-            return `${cell[1]}`.toLowerCase().includes(search.toLowerCase());
-          }
-        })
+        return Object.entries(row).find(cell =>
+          cell[0] !== 'id' && typeof cell[1] === 'string'
+            ? `${cell[1]}`.toLowerCase().includes(search.toLowerCase())
+            : false
+        )
       });
 
       setRows(filteredRows);
@@ -82,9 +81,7 @@ const App = _ => {
     getAllData();
   }, []);
 
-  // const dataIsReady = !!rows.length;
-  // const asd = hasData("Rows").then(res => res);
-
+  // const dataIsReady = !!rowsData.length;
 
   return (
     <AppContainer>

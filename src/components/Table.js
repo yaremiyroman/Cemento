@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
 import { AutoSizer, List } from "react-virtualized";
 import Cell from './Cell';
 import styled from 'styled-components';

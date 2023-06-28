@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import logo from '../cemento_32x32.svg';
+import logo from '../logo.svg';
 
 const Logo = styled.img`
   display: block;
