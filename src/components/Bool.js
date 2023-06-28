@@ -12,7 +12,7 @@ const CheckboxContainer = styled.div`
 `;
 
 const Bool = ({ value, col, rowData }) => {
-    const [checked, setChecked] = useState(value);
+    const [checked, setChecked] = useState(!!value ? value : false);
     const firstRender = useRef(true);
 
     const handleChange = (event) => {
@@ -30,7 +30,6 @@ const Bool = ({ value, col, rowData }) => {
         };
     }, [checked]);
 
-    console.log('rowData > ', rowData.id);
     return (
         <CheckboxContainer>
             <Checkbox

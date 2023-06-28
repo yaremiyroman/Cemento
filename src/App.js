@@ -82,9 +82,8 @@ const App = _ => {
     getAllData();
   }, []);
 
-  const dataIsReady = !!rows.length;
-  const asd = hasData("Rows").then(res => res);
-  console.log('asd > ', asd)
+  // const dataIsReady = !!rows.length;
+  // const asd = hasData("Rows").then(res => res);
 
 
   return (

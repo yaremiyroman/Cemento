@@ -3,7 +3,7 @@ import { updateData } from "../dbService";
 import { TextField } from '@mui/material';
 
 const String = ({ value, col, rowData, isNumber }) => {
-    const [text, setText] = useState(value);
+    const [text, setText] = useState(!!value ? value : '');
     const firstRender = useRef(true);
 
     useEffect(() => {
