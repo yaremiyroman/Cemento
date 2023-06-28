@@ -35,8 +35,6 @@ export const initDB = () => {
 
 export const putData = (data) => {
     const { columns, data: cells } = JSON.parse(data);
-    // console.log('putData columns > ', columns);
-    // console.log('putData cells > ', cells);
 
     const rows = [];
 
@@ -60,6 +58,8 @@ export const putData = (data) => {
             const tx = db.transaction(['Rows', 'Columns'], 'readwrite');
             const storeRows = tx.objectStore('Rows');
             const storeColumns = tx.objectStore('Columns');
+            storeColumns.clear();
+            storeRows.clear();
 
             for (let i in columns) {
                 storeColumns.add(columns[i]);
@@ -69,7 +69,7 @@ export const putData = (data) => {
                 storeRows.add(rows[i]);
             }
 
-            // resolve(rows);
+            resolve(true);
         };
 
         request.onerror = () => {
@@ -80,8 +80,6 @@ export const putData = (data) => {
                 resolve('Unknown error');
             }
         };
-
-        resolve(true);
     });
 };
 

@@ -21,12 +21,6 @@ const AppBar = styled.div`
   padding: 0 10px;
 `;
 
-const UploadWrapper = styled.div`
-  display: flex;
-  background: gainsboro;
-  margin-left: auto;
-`;
-
 const FilterWrapper = styled.div`
   display: flex;
 `;
@@ -142,9 +136,7 @@ const App = _ => {
         </SearchWrapper>
 
 
-        <UploadWrapper>
-          <FileUpload getAllData={getAllData} />
-        </UploadWrapper>
+        <FileUpload getAllData={getAllData} />
 
       </AppBar>
 
