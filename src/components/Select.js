@@ -2,8 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { updateData } from "../dbService";
 import { Select, MenuItem } from '@mui/material';
 
+const defaultOptions = [
+    "Male",
+    "Female"
+];
+
 const SelectComponent = ({ value, rowData, col }) => {
-    const [selected, setSelected] = useState(value.selected);
+    const [selected, setSelected] = useState(!!value ? value.selected : null);
     const firstRender = useRef(true);
 
     const handleChange = (event) => {
@@ -18,7 +23,7 @@ const SelectComponent = ({ value, rowData, col }) => {
                 rowData.id,
                 {
                     [col.id]: {
-                        ...rowData[col.id],
+                        options: !!value ? rowData[col.id].options : defaultOptions,
                         selected: selected
                     }
                 }
@@ -36,7 +41,7 @@ const SelectComponent = ({ value, rowData, col }) => {
             onChange={handleChange}
             style={{ width: "100%" }}
         >
-            {value.options.map(option => (
+            {(!!value ? value.options : defaultOptions).map(option => (
                 <MenuItem key={option} value={option}>{option}</MenuItem>
             ))}
         </Select>
