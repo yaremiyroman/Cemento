@@ -14,13 +14,14 @@ const Bool = ({ value, col, rowData }) => {
         if (firstRender.current) {
             firstRender.current = false;
         } else {
-            updateData({
-                ...rowData,
-                [col.id]: checked
-            });
+            updateData(
+                rowData.id,
+                { [col.id]: checked }
+            );
         };
     }, [checked]);
 
+    console.log('rowData > ', rowData.id);
     return (
         <Checkbox
             checked={checked}

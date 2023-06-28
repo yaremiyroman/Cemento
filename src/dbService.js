@@ -105,18 +105,44 @@ export const getData = (storeName) => {
     });
 };
 
-export const updateData = (rowData) => {
-    console.log('updateData > ', rowData);
-
+export const getRowData = (rowId) => {
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
 
         request.onsuccess = () => {
             const db = request.result;
-            const tx = db.transaction('Rows', 'readwrite');
-            const storeRows = tx.objectStore('Rows');
-            storeRows.put(rowData);
-            resolve(tx.complete);
+
+            if (db.objectStoreNames.contains('Rows')) {
+                const tx = db.transaction('Rows', 'readonly');
+                const store = tx.objectStore('Rows');
+                const res = store.get(rowId);
+
+                res.onsuccess = () => {
+                    resolve(res.result);
+                };
+            } else {
+                resolve(false);
+            }
+        };
+    });
+};
+
+export const updateData = (rowId, newData) => {
+    console.log('updateData newData > ', newData);
+
+    return new Promise((resolve) => {
+        const request = indexedDB.open('Cemento');
+
+        request.onsuccess = () => {
+            getRowData(rowId).then((data) => {
+                const db = request.result;
+                const tx = db.transaction('Rows', 'readwrite');
+                const storeRows = tx.objectStore('Rows');
+                console.log('data ------> ', data)
+                const updatedRowData = { ...data, ...newData };
+                storeRows.put(updatedRowData);
+                resolve(tx.complete);
+            });
         };
 
         request.onerror = () => {

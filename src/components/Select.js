@@ -14,13 +14,15 @@ const SelectComponent = ({ value, rowData, col }) => {
         if (firstRender.current) {
             firstRender.current = false;
         } else {
-            updateData({
-                ...rowData,
-                [col.id]: {
-                    ...rowData[col.id],
-                    selected: selected
+            updateData(
+                rowData.id,
+                {
+                    [col.id]: {
+                        ...rowData[col.id],
+                        selected: selected
+                    }
                 }
-            });
+            );
         };
     }, [selected]);
 

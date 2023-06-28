@@ -11,10 +11,10 @@ const String = ({ value, col, rowData, isNumber }) => {
             firstRender.current = false;
         } else {
             const timerId = setTimeout(() => {
-                updateData({
-                    ...rowData,
-                    [col.id]: text
-                });
+                updateData(
+                    rowData.id,
+                    { [col.id]: text }
+                );
             }, 500);
 
             return () => {
