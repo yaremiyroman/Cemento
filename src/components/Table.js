@@ -44,17 +44,14 @@ const Table = ({ rows, cols, filters }) => {
 
               return (
                 <Row key={row.id} style={style} className={row.id}>
-                  {Object.entries(row)
-                    .filter(([key, value]) => key !== 'id' && filters.includes(key))
-                    .map(([key, value]) => {
-                      const col = cols.find(col => col.id === key);
+                  {cols
+                    .filter((col) => filters.includes(col.id))
+                    .map((col) => (
 
-                      return (
-                        <div key={key} style={{ flex: col.width || 1, order: col.ordinalNo }}>
-                          <Cell col={col} rowData={row} value={value} />
-                        </div>
-                      );
-                    })}
+                      <div key={col.id} style={{ flex: col.width || 1, order: col.ordinalNo }}>
+                        <Cell col={col} rowData={row} value={row[col.id]} />
+                      </div>
+                    ))}
                 </Row>
               );
             }}

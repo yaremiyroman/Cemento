@@ -24,6 +24,8 @@ const SelectComponent = ({ value, rowData, col }) => {
         };
     }, [selected]);
 
+    console.log('selected  > ', selected);
+
     return (
         <Select
             labelId="demo-simple-select-standard-label"
