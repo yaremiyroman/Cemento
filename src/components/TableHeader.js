@@ -4,21 +4,25 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 100%;
   height: 5vh;
-  background: grey;
   display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+`;
+
+const Cell = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
 `;
 
 const TableHeader = ({ cols, filters }) => {
-  // if (!cols.length) return null;
-
   return (
     <Container>
       {cols
         .filter((col) => filters.includes(col.id))
         .map((col) => (
-          <div key={col.id} style={{ flex: col.width || 1, order: col.ordinalNo }}>
+          <Cell key={col.id} style={{ flex: col.width || 1, order: col.ordinalNo }}>
             {col.title}
-          </div>
+          </Cell>
         ))}
     </Container >
   );

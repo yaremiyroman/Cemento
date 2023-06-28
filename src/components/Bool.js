@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Checkbox } from '@mui/material';
 import { updateData } from "../dbService";
+import styled from 'styled-components';
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 6px 0;
+  border-radius: 4px;
+  justify-content: center;
+`;
 
 const Bool = ({ value, col, rowData }) => {
     const [checked, setChecked] = useState(value);
@@ -23,11 +32,13 @@ const Bool = ({ value, col, rowData }) => {
 
     console.log('rowData > ', rowData.id);
     return (
-        <Checkbox
-            checked={checked}
-            onChange={handleChange}
-            inputProps={{ 'aria-label': 'controlled' }}
-        />
+        <CheckboxContainer>
+            <Checkbox
+                checked={checked}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+            />
+        </CheckboxContainer>
     );
 }
 

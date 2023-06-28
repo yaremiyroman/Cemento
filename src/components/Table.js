@@ -5,16 +5,13 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  height: 84vh;
-  background: darkcyan;
+  height: calc(85vh - 1px);
 `;
 
 const Row = styled.div`
   display: flex;
-  border: 1px solid #657786;
-  border-radius: 4px;
-  background-color: #1da1f2;
-  color: white;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.23);
 `;
 
 const TableContainer = styled(List)`

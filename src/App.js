@@ -20,6 +20,7 @@ const AppBar = styled.div`
   height: 10vh;
   width: 100%;
   padding: 0 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.23);
 `;
 
 const App = _ => {
@@ -35,7 +36,7 @@ const App = _ => {
     const handleSearch = () => {
       const filteredRows = rowsData.filter(row => {
         return Object.entries(row).find(cell => {
-          if (cell[0] !== 'id' && typeof cell[1] === 'string' || typeof cell[1] === 'number') {
+          if (cell[0] !== 'id' && typeof cell[1] === 'string') {
             return `${cell[1]}`.includes(search);
           }
         })

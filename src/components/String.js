@@ -26,11 +26,10 @@ const String = ({ value, col, rowData, isNumber }) => {
 
     return (
         <TextField
-            id="outlined-required"
             value={text}
             type={isNumber ? 'number' : 'text'}
             onChange={event => setText(event.target.value)}
-            style={{ width: "100%" }}
+            style={{ width: "100%", border: 'none' }}
         />
     );
 }
