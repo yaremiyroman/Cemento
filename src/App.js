@@ -45,8 +45,6 @@ const App = _ => {
     } else {
       setFilters([...filters, id]);
     }
-    // console.log('event.target.checked > ', event.target.checked);
-    // console.log('id > ', id);
   };
 
   useEffect(() => {
@@ -82,6 +80,7 @@ const App = _ => {
                       checked={filters.includes(id)}
                       onChange={(e) => handleChange(e, id)}
                       name={title}
+                      disabled={filters.length === 1 && filters.includes(id)}
                     />
                   }
                   label={title}
@@ -95,9 +94,9 @@ const App = _ => {
       <SearchWrapper>
         SearchWrapper
       </SearchWrapper>
-      <TableHeader cols={cols} />
-      <Table rows={rows} cols={cols} />
-    </AppContainer >
+      <TableHeader cols={cols} filters={filters} />
+      <Table rows={rows} cols={cols} filters={filters} />
+    </AppContainer>
   );
 }
 

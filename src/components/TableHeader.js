@@ -8,16 +8,18 @@ const Container = styled.div`
   display: flex;
 `;
 
-const TableHeader = ({ cols }) => {
+const TableHeader = ({ cols, filters }) => {
   if (!cols.length) return null;
 
   return (
     <Container>
-      {cols.map((col) => (
-        <div key={col.id} style={{ flex: col.width || 1, order: col.ordinalNo }}>
-          {col.title}
-        </div>
-      ))}
+      {cols
+        .filter((col) => filters.includes(col.id))
+        .map((col) => (
+          <div key={col.id} style={{ flex: col.width || 1, order: col.ordinalNo }}>
+            {col.title}
+          </div>
+        ))}
     </Container >
   );
 }

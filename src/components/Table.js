@@ -26,7 +26,7 @@ const TableContainer = styled(List)`
    }
 `;
 
-const Table = ({ rows, cols }) => {
+const Table = ({ rows, cols, filters }) => {
   if (!rows.length) return null;
   if (!cols.length) return null;
 
@@ -44,8 +44,9 @@ const Table = ({ rows, cols }) => {
 
               return (
                 <Row key={key} style={style} className={row.id}>
-                  {Object.entries(row).map(([key, value]) => {
-                    if (key !== 'id') {
+                  {Object.entries(row)
+                    .filter(([key, value]) => key !== 'id' && filters.includes(key))
+                    .map(([key, value]) => {
                       const col = cols.find(col => col.id === key);
 
                       return (
@@ -53,8 +54,7 @@ const Table = ({ rows, cols }) => {
                           <Cell col={col} rowData={row} value={value} />
                         </div>
                       );
-                    }
-                  })}
+                    })}
                 </Row>
               );
             }}
