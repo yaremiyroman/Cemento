@@ -103,6 +103,28 @@ export const getData = (storeName) => {
     });
 };
 
+export const hasData = (storeName) => {
+    return new Promise((resolve) => {
+        const request = indexedDB.open('Cemento');
+
+        request.onsuccess = () => {
+            const db = request.result;
+
+            if (db.objectStoreNames.contains(storeName)) {
+                const tx = db.transaction(storeName, 'readonly');
+                const store = tx.objectStore(storeName);
+                const res = store.count();
+
+                res.onsuccess = () => {
+                    resolve(res.result);
+                };
+            } else {
+                resolve(false);
+            }
+        };
+    });
+};
+
 export const getRowData = (rowId) => {
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');

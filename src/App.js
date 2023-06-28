@@ -4,7 +4,7 @@ import Table from './components/Table';
 import AppBrand from './components/AppBrand';
 import TableHeader from './components/TableHeader';
 import Placeholder from './components/Placeholder';
-import { getData, initDB } from './dbService';
+import { getData, initDB, hasData } from './dbService';
 import styled from 'styled-components';
 import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, TextField } from '@mui/material';
 
@@ -20,15 +20,6 @@ const AppBar = styled.div`
   height: 10vh;
   width: 100%;
   padding: 0 10px;
-`;
-
-const FilterWrapper = styled.div`
-  display: flex;
-`;
-
-const SearchWrapper = styled.div`
-  display: flex;
-  background: palevioletred;
 `;
 
 const App = _ => {
@@ -91,67 +82,60 @@ const App = _ => {
   }, []);
 
   const dataIsReady = !!rows.length;
+  const asd = hasData("Rows").then(res => res);
+  console.log('asd > ', asd)
+
 
   return (
     <AppContainer>
       <AppBar>
         <AppBrand />
 
-        {dataIsReady && (
-          <>
-            <FilterWrapper>
-              <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
-              <Drawer
-                anchor="left"
-                open={filtersIsOpen}
-                onClose={() => setFiltersIsOpen(false)}
-              >
-                <FormControl component="fieldset" style={{ padding: 20, paddingRight: 100 }}>
-                  <FormLabel component="legend" style={{ paddingTop: 20 }}>Filter columns:</FormLabel>
-                  <FormGroup>
-                    {cols.map(({ title, id }) => (
-                      <FormControlLabel
-                        key={id}
-                        control={
-                          <Checkbox
-                            checked={filters.includes(id)}
-                            onChange={(e) => handleFiltersChange(e, id)}
-                            name={title}
-                            disabled={filters.length === 1 && filters.includes(id)}
-                          />
-                        }
-                        label={title}
+        <>
+          <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
+          <Drawer
+            anchor="left"
+            open={filtersIsOpen}
+            onClose={() => setFiltersIsOpen(false)}
+          >
+            <FormControl component="fieldset" style={{ padding: 20, paddingRight: 100 }}>
+              <FormLabel component="legend" style={{ paddingTop: 20 }}>Filter columns:</FormLabel>
+              <FormGroup>
+                {cols.map(({ title, id }) => (
+                  <FormControlLabel
+                    key={id}
+                    control={
+                      <Checkbox
+                        checked={filters.includes(id)}
+                        onChange={(e) => handleFiltersChange(e, id)}
+                        name={title}
+                        disabled={filters.length === 1 && filters.includes(id)}
                       />
-                    ))}
-                  </FormGroup>
-                </FormControl>
-              </Drawer>
-            </FilterWrapper>
-            <SearchWrapper>
-              <TextField
-                id="standard-basic"
-                label="Search"
-                variant="standard"
-                onChange={event => setSearch(event.target.value)}
-                value={search}
-              />
-            </SearchWrapper>
-          </>
-        )}
+                    }
+                    label={title}
+                  />
+                ))}
+              </FormGroup>
+            </FormControl>
+          </Drawer>
+        </>
 
+        <TextField
+          id="standard-basic"
+          variant="standard"
+          onChange={event => setSearch(event.target.value)}
+          placeholder="search"
+          value={search}
+        />
         <FileUpload getAllData={getAllData} />
 
       </AppBar>
 
 
-      {dataIsReady ? (
-        <>
-          <TableHeader cols={cols} filters={filters} />
-          <Table rows={rows} cols={cols} filters={filters} />
-        </>
-      ) : (
-        <Placeholder />
-      )}
+      <TableHeader cols={cols} filters={filters} />
+      <>
+        <Table rows={rows} cols={cols} filters={filters} />
+      </>
     </AppContainer >
   );
 }

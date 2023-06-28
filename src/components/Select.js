@@ -37,7 +37,7 @@ const SelectComponent = ({ value, rowData, col }) => {
         <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
-            value={selected}
+            value={selected || ''}
             onChange={handleChange}
             style={{ width: "100%" }}
         >
