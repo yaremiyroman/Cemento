@@ -8,12 +8,10 @@ export const initDB = () => {
             const db = request.result;
 
             if (!db.objectStoreNames.contains('Columns')) {
-                console.log('Creating Columns store');
                 db.createObjectStore('Columns', { keyPath: 'id' });
             }
 
             if (!db.objectStoreNames.contains('Rows')) {
-                console.log('Creating Rows store');
                 db.createObjectStore('Rows', { keyPath: 'id' });
             }
         };
@@ -128,8 +126,6 @@ export const getRowData = (rowId) => {
 };
 
 export const updateData = (rowId, newData) => {
-    console.log('updateData newData > ', newData);
-
     return new Promise((resolve) => {
         const request = indexedDB.open('Cemento');
 
@@ -138,7 +134,6 @@ export const updateData = (rowId, newData) => {
                 const db = request.result;
                 const tx = db.transaction('Rows', 'readwrite');
                 const storeRows = tx.objectStore('Rows');
-                console.log('data ------> ', data)
                 const updatedRowData = { ...data, ...newData };
                 storeRows.put(updatedRowData);
                 resolve(tx.complete);

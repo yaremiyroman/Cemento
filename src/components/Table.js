@@ -27,9 +27,6 @@ const TableContainer = styled(List)`
 `;
 
 const Table = ({ rows, cols, filters }) => {
-  // if (!rows.length) return null;
-  // if (!cols.length) return null;
-
   return (
     <Container>
       <AutoSizer>

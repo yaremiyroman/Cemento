@@ -3,6 +3,7 @@ import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
 import TableHeader from './components/TableHeader';
+import Placeholder from './components/Placeholder';
 import { getData, initDB } from './dbService';
 import styled from 'styled-components';
 import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, TextField } from '@mui/material';
@@ -89,61 +90,69 @@ const App = _ => {
     getAllData();
   }, []);
 
+  const dataIsReady = !!rows.length;
+
   return (
     <AppContainer>
       <AppBar>
-
-
         <AppBrand />
 
-        <FilterWrapper>
-          <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
-          <Drawer
-            anchor="left"
-            open={filtersIsOpen}
-            onClose={() => setFiltersIsOpen(false)}
-          >
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Filter columns:</FormLabel>
-              <FormGroup>
-                {cols.map(({ title, id }) => (
-                  <FormControlLabel
-                    key={id}
-                    control={
-                      <Checkbox
-                        checked={filters.includes(id)}
-                        onChange={(e) => handleFiltersChange(e, id)}
-                        name={title}
-                        disabled={filters.length === 1 && filters.includes(id)}
+        {dataIsReady && (
+          <>
+            <FilterWrapper>
+              <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
+              <Drawer
+                anchor="left"
+                open={filtersIsOpen}
+                onClose={() => setFiltersIsOpen(false)}
+              >
+                <FormControl component="fieldset" style={{ padding: 20, paddingRight: 100 }}>
+                  <FormLabel component="legend" style={{ paddingTop: 20 }}>Filter columns:</FormLabel>
+                  <FormGroup>
+                    {cols.map(({ title, id }) => (
+                      <FormControlLabel
+                        key={id}
+                        control={
+                          <Checkbox
+                            checked={filters.includes(id)}
+                            onChange={(e) => handleFiltersChange(e, id)}
+                            name={title}
+                            disabled={filters.length === 1 && filters.includes(id)}
+                          />
+                        }
+                        label={title}
                       />
-                    }
-                    label={title}
-                  />
-                ))}
-              </FormGroup>
-            </FormControl>
-          </Drawer>
-        </FilterWrapper>
-
-        <SearchWrapper>
-          <TextField
-            id="standard-basic"
-            label="Search"
-            variant="standard"
-            onChange={event => setSearch(event.target.value)}
-            value={search}
-          />
-        </SearchWrapper>
-
+                    ))}
+                  </FormGroup>
+                </FormControl>
+              </Drawer>
+            </FilterWrapper>
+            <SearchWrapper>
+              <TextField
+                id="standard-basic"
+                label="Search"
+                variant="standard"
+                onChange={event => setSearch(event.target.value)}
+                value={search}
+              />
+            </SearchWrapper>
+          </>
+        )}
 
         <FileUpload getAllData={getAllData} />
 
       </AppBar>
 
 
-      <TableHeader cols={cols} filters={filters} />
-      <Table rows={rows} cols={cols} filters={filters} />
-    </AppContainer>
+      {dataIsReady ? (
+        <>
+          <TableHeader cols={cols} filters={filters} />
+          <Table rows={rows} cols={cols} filters={filters} />
+        </>
+      ) : (
+        <Placeholder />
+      )}
+    </AppContainer >
   );
 }
 
