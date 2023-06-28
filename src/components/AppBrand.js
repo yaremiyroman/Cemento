@@ -1,19 +1,12 @@
 import React from "react";
 import styled from 'styled-components';
+import logo from '../cemento_32x32.svg';
 
-const Container = styled.div`
-  display: flex;
-  width: 25%;
-  height: 5vh;
-  background: palegoldenrod;
+const Logo = styled.img`
+  display: block;
+  height: fit-content;
 `;
 
-const AppControl = _ => {
-  return (
-    <Container>
-      Cemento
-    </Container >
-  );
-}
+const AppBrand = _ => <Logo src={logo} alt="Cemento" />;
 
-export default AppControl;
+export default AppBrand;

@@ -1,35 +1,36 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FileUpload from './components/FileUpload';
 import Table from './components/Table';
 import AppBrand from './components/AppBrand';
 import TableHeader from './components/TableHeader';
 import { getData, initDB } from './dbService';
 import styled from 'styled-components';
-import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, FormHelperText, TextField } from '@mui/material';
+import { Drawer, Button, FormControl, FormLabel, FormGroup, Checkbox, FormControlLabel, TextField } from '@mui/material';
 
 const AppContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
 
+const AppBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 10vh;
+`;
+
 const UploadWrapper = styled.div`
   display: flex;
-  width: 25%;
-  height: 5vh;
   background: gainsboro;
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
-  width: 25%;
-  height: 5vh;
   background: paleturquoise;
 `;
 
 const SearchWrapper = styled.div`
   display: flex;
-  width: 25%;
-  height: 5vh;
   background: palevioletred;
 `;
 
@@ -52,7 +53,6 @@ const App = _ => {
         })
       });
 
-      console.log('filteredRows => ', filteredRows);
       setRows(filteredRows);
     }
 
@@ -94,49 +94,60 @@ const App = _ => {
   }, []);
 
   return (
-    <AppContainer className="App">
-      <AppBrand />
-      <UploadWrapper>
-        <FileUpload getAllData={getAllData} />
-      </UploadWrapper>
-      <FilterWrapper>
-        <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
-        <Drawer
-          anchor="left"
-          open={filtersIsOpen}
-          onClose={() => setFiltersIsOpen(false)}
-        >
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Filter columns:</FormLabel>
-            <FormGroup>
-              {cols.map(({ title, id }) => (
-                <FormControlLabel
-                  key={id}
-                  control={
-                    <Checkbox
-                      checked={filters.includes(id)}
-                      onChange={(e) => handleFiltersChange(e, id)}
-                      name={title}
-                      disabled={filters.length === 1 && filters.includes(id)}
-                    />
-                  }
-                  label={title}
-                />
-              ))}
-            </FormGroup>
-            <FormHelperText>Choost what you want what you want what you want </FormHelperText>
-          </FormControl>
-        </Drawer>
-      </FilterWrapper>
-      <SearchWrapper>
-        <TextField
-          id="standard-basic"
-          label="Search"
-          variant="standard"
-          onChange={event => setSearch(event.target.value)}
-          value={search}
-        />
-      </SearchWrapper>
+    <AppContainer>
+      <AppBar>
+
+
+        <AppBrand />
+
+
+        <UploadWrapper>
+          <FileUpload getAllData={getAllData} />
+        </UploadWrapper>
+
+
+        <FilterWrapper>
+          <Button onClick={() => setFiltersIsOpen(!filtersIsOpen)}>Filters</Button>
+          <Drawer
+            anchor="left"
+            open={filtersIsOpen}
+            onClose={() => setFiltersIsOpen(false)}
+          >
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Filter columns:</FormLabel>
+              <FormGroup>
+                {cols.map(({ title, id }) => (
+                  <FormControlLabel
+                    key={id}
+                    control={
+                      <Checkbox
+                        checked={filters.includes(id)}
+                        onChange={(e) => handleFiltersChange(e, id)}
+                        name={title}
+                        disabled={filters.length === 1 && filters.includes(id)}
+                      />
+                    }
+                    label={title}
+                  />
+                ))}
+              </FormGroup>
+            </FormControl>
+          </Drawer>
+        </FilterWrapper>
+
+        <SearchWrapper>
+          <TextField
+            id="standard-basic"
+            label="Search"
+            variant="standard"
+            onChange={event => setSearch(event.target.value)}
+            value={search}
+          />
+        </SearchWrapper>
+
+      </AppBar>
+
+
       <TableHeader cols={cols} filters={filters} />
       <Table rows={rows} cols={cols} filters={filters} />
     </AppContainer>
